@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import time
-
+ 
 st.set_page_config(layout='wide')
 
 st.title('Price App')
