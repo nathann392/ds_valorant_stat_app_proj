@@ -20,7 +20,7 @@ import sys
 #st.title('App')
 #st.markdown('This app retrieves statistical data from the ____')
 
-
+#---------------------------------#
 # Web scraping
 def load_webdriver(name, url, output = False):
     options = webdriver.ChromeOptions()
@@ -53,17 +53,8 @@ def get_player_refs(soup):
 
     return players
 
-def get_name(player_soup):
-    name = player_soup.find("span", class_= "trn-ign__username")
-    hashtag = player_soup.find("span", class_= "trn-ign__discriminator")
-    return name.get_text().strip() + hashtag.get_text().strip()
-
-# TODO: View top 3 agents, vandal/phantom, ACS
-def get_agents(player_soup):
-    pass
-
-def get_rifle(player_soup):
-    pass
+#---------------------------------#
+# Get player information
 
 def get_rank(player_soup):
     rank_soup = player_soup.find("div", class_= "subtext")
@@ -76,16 +67,43 @@ def get_rr(player_soup):
     rr = rr_soup.get_text().strip().replace(",","").replace("RR","")
     return int(rr)
 
+def get_name(player_soup):
+    name = player_soup.find("span", class_= "trn-ign__username")
+    hashtag = player_soup.find("span", class_= "trn-ign__discriminator")
+    return name.get_text().strip() + hashtag.get_text().strip()
 
+def get_score_per_round(player_soup):
+    pass
+
+def get_damage_per_round(player_soup):
+    pass
+
+def get_kd_ratio(player_soup):
+    pass
+
+def get_hs_percent(player_soup):
+    pass
+
+def get_win_percent(player_soup):
+    pass
+
+def get_top_agents(player_soup):
+    pass
+
+def get_top_weapons(player_soup):
+    pass
+
+def get_weapon_hs(player_soup):
+    pass
 
 #---------------------------------#
+# Main
 
 url = "https://tracker.gg"
 leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
 
-cols = ['rank', 'rating', 'name']
+cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_3_agents', 'top_weapon', 'top_weapon_hs_percentage(%)']
 df = pd.DataFrame(columns=cols)
-
 
 def main():
 
@@ -100,6 +118,6 @@ def main():
     print(get_name(one))
     print(get_rr(one))
     print(get_rank(one))
-    
+
 if __name__ == "__main__":
     main()
