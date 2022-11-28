@@ -56,11 +56,7 @@ def get_player_refs(soup):
 def get_name(player_soup):
     name = player_soup.find("span", class_= "trn-ign__username")
     hashtag = player_soup.find("span", class_= "trn-ign__discriminator")
-    print(name.get_text().strip())
-    print(hashtag.get_text().strip())
-
-
-
+    return name.get_text().strip() + hashtag.get_text().strip()
 
 # TODO: View top 3 agents, vandal/phantom, ACS
 def get_agents(player_soup):
@@ -70,21 +66,40 @@ def get_rifle(player_soup):
     pass
 
 def get_rank(player_soup):
-    pass
+    rank_soup = player_soup.find("div", class_= "subtext")
+    rank = rank_soup.get_text().strip().replace("#","")
+    return int(rank)
+
+
+def get_rr(player_soup):
+    rr_soup = player_soup.find("span", class_= "mmr")
+    rr = rr_soup.get_text().strip().replace(",","").replace("RR","")
+    return int(rr)
+
+
 
 #---------------------------------#
 
+url = "https://tracker.gg"
+leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
+
+cols = ['rank', 'rating', 'name']
+df = pd.DataFrame(columns=cols)
+
+
 def main():
-    url = "https://tracker.gg"
-    leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
+
 
     soup = load_webdriver("leaderboard", url + leaderboard_ref, output=True)
     player_refs = get_player_refs(soup)
     
+
     # TODO: Set up multithread 
-    one = load_webdriver("player1", url + player_refs[43], output=True)
+    one = load_webdriver("player1", url + player_refs[0], output=True)
 
-    get_name(one)
-
+    print(get_name(one))
+    print(get_rr(one))
+    print(get_rank(one))
+    
 if __name__ == "__main__":
     main()
