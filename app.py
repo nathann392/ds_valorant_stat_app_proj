@@ -42,22 +42,49 @@ def load_webdriver(name, url, output = False):
 
     return soup
 
-# TODO: Run webdriver for top 100 players
-def load_player(soup):   
+def get_player_refs(soup):      
+    players = []
     usernames = soup.find_all("td", class_="username")
-
+    
     for index, username in enumerate(usernames):
         user_url = username.div.a['href']
+        players.append(user_url)        
         print(str(index + 1) + " " + user_url)
 
-# TODO: View top 3 agents, vandal/phantom
+    return players
+
+def get_name(player_soup):
+    name = player_soup.find("span", class_= "trn-ign__username")
+    hashtag = player_soup.find("span", class_= "trn-ign__discriminator")
+    print(name.get_text().strip())
+    print(hashtag.get_text().strip())
+
+
+
+
+# TODO: View top 3 agents, vandal/phantom, ACS
+def get_agents(player_soup):
+    pass
+
+def get_rifle(player_soup):
+    pass
+
+def get_rank(player_soup):
+    pass
+
+#---------------------------------#
 
 def main():
-    leaderboard_url = "https://tracker.gg/valorant/leaderboards/ranked/all/default?page=1&region=na"
+    url = "https://tracker.gg"
+    leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
 
-    soup = load_webdriver("leaderboard", leaderboard_url, output=True)
+    soup = load_webdriver("leaderboard", url + leaderboard_ref, output=True)
+    player_refs = get_player_refs(soup)
+    
+    # TODO: Set up multithread 
+    one = load_webdriver("player1", url + player_refs[43], output=True)
 
-    load_player(soup)
+    get_name(one)
 
 if __name__ == "__main__":
     main()
