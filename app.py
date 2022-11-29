@@ -6,7 +6,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
+from IPython.display import display
 import pandas as pd
+import concurrent.futures
 import base64
 import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
@@ -14,7 +16,10 @@ import requests
 import json
 import time
 import sys
- 
+
+cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_3_agents', 'top_weapon', 'top_weapon_hs_percentage(%)']
+df = pd.DataFrame(columns=cols)
+
 #st.set_page_config(layout='wide')
 
 #st.title('App')
@@ -22,7 +27,8 @@ import sys
 
 #---------------------------------#
 # Web scraping
-def load_webdriver(name, url, output = False):
+
+def load_webdriver(url, output = ("", False)):
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
@@ -36,8 +42,8 @@ def load_webdriver(name, url, output = False):
 
     soup = BeautifulSoup(driver.page_source, features="html.parser")
 
-    if output == True:
-        with open("{0}.html".format(name), "w", encoding="utf-8") as f:
+    if output[1] == True:
+        with open("{0}.html".format(output[0]), "w", encoding="utf-8") as f:
             f.write(str(soup.prettify()))
 
     return soup
@@ -49,7 +55,6 @@ def get_player_refs(soup):
     for index, username in enumerate(usernames):
         user_url = username.div.a['href']
         players.append(user_url)        
-        print(str(index + 1) + " " + user_url)
 
     return players
 
@@ -57,18 +62,21 @@ def get_player_refs(soup):
 # Get player information
 
 def get_player_data(player_soup):
-    print(get_name(player_soup))
-    print(get_rr(player_soup))
-    print(get_rank(player_soup))
-    print(get_stat(player_soup, "Score/Round"))
-    print(get_stat(player_soup, "Damage/Round"))    
-    print(get_stat(player_soup, "K/D Ratio"))
-    print(get_stat(player_soup, "Headshot%"))
-    print(get_stat(player_soup, "Win %"))
-    print(get_top_agents(player_soup))
-    print(get_top_weapons(player_soup))
-    print(get_top_weapon_hs(player_soup))
+    name = get_name(player_soup)
+    rr = get_rr(player_soup)
+    rank = get_rank(player_soup)
+    score = get_stat(player_soup, "Score/Round")
+    dmg = get_stat(player_soup, "Damage/Round") 
+    kd = get_stat(player_soup, "K/D Ratio")
+    hs = get_stat(player_soup, "Headshot%")
+    win = get_stat(player_soup, "Win %")
+    agents = get_top_agents(player_soup)
+    weapons = get_top_weapons(player_soup)
+    weapon_hs = get_top_weapon_hs(player_soup)
 
+    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_3_agents': agents, 'top_weapon': weapons, 'top_weapon_hs_percentage(%)': weapon_hs})
+
+    return row
 
 def get_rank(player_soup):
     rank_soup = player_soup.find("div", class_= "subtext")
@@ -100,7 +108,6 @@ def get_top_agents(player_soup):
 
     return agents
 
-
 def get_top_weapons(player_soup):
     weapons = []
     weapon_soup = player_soup.find_all("div", class_= "weapon__name")
@@ -109,31 +116,36 @@ def get_top_weapons(player_soup):
 
     return weapons
 
-
 def get_top_weapon_hs(player_soup):
     weapon_hs_soup = player_soup.find("div", class_="weapon__accuracy-hits")
     weapon_hs =  weapon_hs_soup.contents[0].get_text().strip().replace("%","") 
     return weapon_hs
 
+#---------------------------------#
+# Multithread player data scraping
+
+def load_player_data(ref):
+    global df
+    player_soup = load_webdriver("https://tracker.gg" + ref)
+    player_data = get_player_data(player_soup)
+    df = pd.concat([df, player_data.to_frame().T], ignore_index=True)
+
 
 #---------------------------------#
 # Main
 
-url = "https://tracker.gg"
-leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
-
-cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_3_agents', 'top_weapon', 'top_weapon_hs_percentage(%)']
-df = pd.DataFrame(columns=cols)
-
 def main():
 
-    soup = load_webdriver("leaderboard", url + leaderboard_ref, output=True)
+    url = "https://tracker.gg"
+    leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
+
+    soup = load_webdriver(url + leaderboard_ref, output=("leaderboard", True))
     player_refs = get_player_refs(soup)   
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(load_player_data, player_refs)
 
-    # TODO: Set up multithread 
-    one = load_webdriver("player1", url + player_refs[0], output=True)
-
-    get_player_data(one)
-
+    df.to_csv("combined_player_data.csv", encoding='utf-8')
+    
 if __name__ == "__main__":
     main()
+

@@ -1,0 +1,101 @@
+,rank,rating,name,score/round,damage/round,k/d_ratio,hs_percentage(%),win_percentage(%),top_3_agents,top_weapon,top_weapon_hs_percentage(%)
+0,4,1094,SEN dephh#yadig,230.5,152.3,1.16,30.6,58.1,"['Astra', 'Chamber', 'Viper']","['Vandal', 'Phantom', 'Ghost']",44
+1,6,1068,RICEBALLINNN#ani,226.8,150.3,1.21,26.9,60.9,"['Sova', 'Breach', 'Fade']","['Vandal', 'Spectre', 'Classic']",39
+2,1,1126,N4RRATE#JESUS,263.7,170.2,1.27,21.9,64.3,"['Raze', 'Chamber', 'Reyna']","['Vandal', 'Phantom', 'Operator']",32
+3,3,1104,100T Asuna#1111,261.5,168.2,1.29,25.6,63.8,"['Fade', 'Raze', 'Reyna']","['Vandal', 'Phantom', 'Ghost']",36
+4,2,1126,SEN zekken#5193,266.3,173.6,1.39,41.6,65.8,"['Sova', 'Chamber', 'Raze']","['Vandal', 'Ghost', 'Spectre']",57
+5,7,1066,EG BcJ#5FT2,233.0,151.9,1.21,20.2,60.9,"['Chamber', 'Astra', 'Brimstone']","['Vandal', 'Phantom', 'Spectre']",30
+6,9,1057,V1 Zander#swag,235.4,152.7,1.21,28.3,60.0,"['Viper', 'Omen', 'Brimstone']","['Vandal', 'Spectre', 'Phantom']",40
+7,8,1062,nabil#jess,277.7,182.8,1.32,28.4,67.3,"['Reyna', 'Sova', 'Raze']","['Vandal', 'Phantom', 'Ghost']",42
+8,5,1083,NRG s0m#NRG,249.8,159.6,1.30,29.4,60.6,"['Astra', 'Sova', 'Brimstone']","['Vandal', 'Stinger', 'Phantom']",47
+9,11,1046,zeldrisFN2005#Bugha,270.5,172.4,1.40,29.2,64.2,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Operator', 'Spectre']",43
+10,10,1054,ANDR0IDX23#ZpG,234.1,154.1,1.22,32.2,55.9,"['KAY/O', 'Raze', 'Viper']","['Vandal', 'Phantom', 'Ghost']",46
+11,12,1040,BabyJ#Halo,237.7,155.5,1.25,31.9,58.0,"['Sage', 'Cypher', 'Fade']","['Vandal', 'Ghost', 'Classic']",42
+12,13,996,Kanpeki#1111,246.4,161.7,1.22,28.7,55.5,"['Jett', 'Chamber', 'Breach']","['Vandal', 'Sheriff', 'Phantom']",40
+13,14,981,OXG Reduxx#stop,272.4,175.0,1.26,34.4,61.6,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Sheriff', 'Operator']",51
+14,15,972,Jonaaa6#1109,221.5,144.4,1.10,26.5,56.5,"['Chamber', 'Sova', 'KAY/O']","['Vandal', 'Phantom', 'Ghost']",37
+15,16,959,GUARD trent#Habib,247.8,161.4,1.20,31.2,57.0,"['Sova', 'Jett', 'Raze']","['Vandal', 'Phantom', 'Spectre']",48
+16,17,955,brawk#uwu,231.0,152.8,1.22,26.3,59.2,"['Fade', 'Sova', 'Astra']","['Vandal', 'Phantom', 'Ghost']",37
+17,19,933,SEN tarik#1337,254.4,164.0,1.28,23.5,55.1,"['Chamber', 'Jett', 'Reyna']","['Vandal', 'Operator', 'Phantom']",33
+18,18,945,EG JAWGEMO#MOR,246.6,159.2,1.17,25.9,60.0,"['Raze', 'Jett', 'Chamber']","['Vandal', 'Ghost', 'Phantom']",40
+19,20,927,wedid#0702,231.1,152.5,1.20,32.8,60.2,"['Viper', 'Raze', 'Omen']","['Vandal', 'Phantom', 'Ghost']",46
+20,21,926,NaturE#RAT,262.3,169.6,1.23,28.0,60.9,"['Jett', 'KAY/O', 'Fade']","['Vandal', 'Phantom', 'Operator']",43
+21,22,917,EG Apoth#DOG,230.9,150.7,1.16,32.3,59.0,"['Viper', 'Omen', 'Brimstone']","['Vandal', 'Phantom', 'Ghost']",44
+22,23,911,TSM Rossy x1#jess,223.0,146.0,1.20,31.3,57.0,"['Sova', 'Breach', 'Astra']","['Vandal', 'Classic', 'Bulldog']",44
+23,25,909,Korsonix#100,216.2,141.1,1.23,30.0,64.8,"['Astra', 'Viper', 'Brimstone']","['Vandal', 'Ghost', 'Spectre']",43
+24,27,900,C9 vanity#XITER,228.0,149.3,1.14,19.2,64.1,"['Reyna', 'Raze', 'Cypher']","['Vandal', 'Phantom', 'Operator']",30
+25,26,901,sexy bean#jakee,270.4,172.0,1.23,34.6,51.7,"['Jett', 'Viper', 'Chamber']","['Vandal', 'Ghost', 'Sheriff']",44
+26,28,899,KING VINNY#NA1,229.4,149.1,1.15,26.2,59.7,"['Chamber', 'Jett', 'KAY/O']","['Vandal', 'Operator', 'Phantom']",38
+27,29,898,Bart#00000,230.8,153.0,1.06,33.6,61.8,"['Jett', 'Reyna', 'Phoenix']","['Vandal', 'Ghost', 'Marshal']",49
+28,30,895,T1 ban#xuf,252.0,161.0,1.16,30.2,53.1,"['Chamber', 'Jett', 'Reyna']","['Vandal', 'Phantom', 'Operator']",46
+29,31,895,curry#66666,255.9,164.5,1.19,24.9,55.5,"['KAY/O', 'Raze', 'Fade']","['Vandal', 'Phantom', 'Ghost']",39
+30,38,870,Eggsterr#NJLTC,237.8,152.4,1.02,24.6,53.4,"['Yoru', 'Skye', 'Sova']","['Vandal', 'Phantom', 'Stinger']",41
+31,33,885,WaterBuffalo#Buff,218.0,143.6,1.14,26.9,52.8,"['Sova', 'Chamber', 'Fade']","['Vandal', 'Operator', 'Phantom']",39
+32,34,883,SR mada#1945,240.7,156.5,1.08,30.3,55.6,"['Raze', 'Reyna', 'Chamber']","['Vandal', 'Ghost', 'Spectre']",46
+33,32,893,i want real sage#imeow,238.7,152.9,1.09,35.4,59.5,"['Chamber', 'Jett', 'Raze']","['Vandal', 'Phantom', 'Spectre']",56
+34,35,876,C9 Zellsis#1240,226.0,147.5,1.05,25.5,51.6,"['Raze', 'KAY/O', 'Sova']","['Vandal', 'Phantom', 'Stinger']",41
+35,36,876,add3r#LFHER,233.4,153.9,1.18,34.9,58.1,"['Sova', 'Fade', 'Omen']","['Vandal', 'Phantom', 'Ghost']",48
+36,37,872,nillyaz#sosa,218.8,144.2,1.15,30.2,53.5,"['Astra', 'Sova', 'KAY/O']","['Phantom', 'Vandal', 'Spectre']",41
+37,39,865,zt0L#TTV,216.1,136.4,1.02,22.9,48.5,"['Fade', 'Neon', 'Reyna']","['Vandal', 'Phantom', 'Stinger']",37
+38,40,861,stallion#MUNCH,207.6,136.5,1.01,23.1,52.6,"['Raze', 'Fade', 'Jett']","['Vandal', 'Phantom', 'Spectre']",37
+39,41,860,Dark3st#7489,238.7,155.1,1.19,31.1,63.4,"['KAY/O', 'Viper', 'Reyna']","['Vandal', 'Spectre', 'Ghost']",45
+40,42,858,GianSanity#AIM,225.3,144.5,1.08,25.8,53.0,"['Jett', 'Chamber', 'Phoenix']","['Vandal', 'Operator', 'Ghost']",39
+41,44,857,Toskri#915,246.5,165.0,1.22,35.5,57.9,"['Reyna', 'Raze', 'Jett']","['Vandal', 'Ghost', 'Sheriff']",50
+42,43,858,DraYstaR#zapr,202.2,132.4,1.16,25.8,51.6,"['Sova', 'Sage', 'Astra']","['Vandal', 'Phantom', 'Sheriff']",37
+43,45,848,진지하게 약빨고 집중한 우상범#3r0vi,210.2,133.3,0.96,18.0,52.5,"['Brimstone', 'Omen', 'Phoenix']","['Vandal', 'Phantom', 'Stinger']",35
+44,46,848,분노해서 약빨고 폭주한 우상범#ixrx3,211.2,135.1,1.00,19.0,59.4,"['Brimstone', 'Omen', 'Fade']","['Vandal', 'Phantom', 'Spectre']",34
+45,47,848,XSET Noia#iceqb,244.1,160.6,1.24,33.2,53.3,"['Chamber', 'Jett', 'Reyna']","['Vandal', 'Operator', 'Sheriff']",47
+46,48,846,SEN TenZ#0505,262.8,170.7,1.37,26.3,64.6,"['Jett', 'KAY/O', 'Chamber']","['Vandal', 'Operator', 'Sheriff']",40
+47,50,842,SEN ShahZaM#jam,242.8,160.8,1.17,25.0,49.3,"['Raze', 'Sova', 'Jett']","['Vandal', 'Operator', 'Phantom']",38
+48,49,844,poopybutt9000#watt,252.3,162.7,1.33,29.4,77.4,"['Viper', 'Chamber', 'Omen']","['Vandal', 'Spectre', 'Ghost']",41
+49,51,842,Playboi Joe#jvN,221.7,147.5,1.10,24.4,58.4,"['Sova', 'Raze', 'Fade']","['Vandal', 'Stinger', 'Phantom']",40
+50,52,842,governor#ciao,264.7,168.9,1.26,29.1,51.5,"['Chamber', 'Jett', 'Raze']","['Vandal', 'Operator', 'Phantom']",46
+51,53,837,glyph#XLVII,211.9,137.9,0.98,28.4,50.2,"['Reyna', 'Sova', 'Chamber']","['Vandal', 'Phantom', 'Ghost']",42
+52,68,819,Relyks#vibin,220.1,145.1,1.11,26.2,53.9,"['Raze', 'Jett', 'Chamber']","['Vandal', 'Spectre', 'Ghost']",37
+53,54,835,Velocity#Smile,226.4,150.5,1.05,29.3,54.5,"['Chamber', 'Jett', 'Reyna']","['Vandal', 'Phantom', 'Sheriff']",45
+54,55,830,samdlphn#linda,210.0,138.2,1.00,28.7,48.8,"['Chamber', 'Jett', 'Reyna']","['Vandal', 'Operator', 'Ghost']",44
+55,56,829,Cryocells#Taffy,271.1,173.2,1.35,26.4,58.2,"['Chamber', 'Raze', 'Jett']","['Vandal', 'Operator', 'Ghost']",38
+56,57,829,eeiu#1945,264.1,171.0,1.24,35.5,54.1,"['Reyna', 'Sova', 'Fade']","['Vandal', 'Sheriff', 'Ghost']",48
+57,58,827,MSF florescent#meow,263.8,174.7,1.23,37.9,54.3,"['Jett', 'Reyna', 'Phoenix']","['Vandal', 'Phantom', 'Guardian']",52
+58,60,825,100T bang#0000,259.1,169.5,1.28,40.4,56.7,"['Chamber', 'Viper', 'Omen']","['Phantom', 'Vandal', 'Ghost']",51
+59,61,824,CalcFN#PRBLM,236.9,157.6,1.05,22.2,54.8,"['Raze', 'Jett', 'Phoenix']","['Vandal', 'Phantom', 'Spectre']",36
+60,62,823,EG C0M#512,219.2,143.8,1.10,27.2,55.7,"['Sova', 'Fade', 'Breach']","['Vandal', 'Phantom', 'Ghost']",43
+61,63,821,SR bdog#92122,253.2,162.1,1.33,25.3,56.7,"['Chamber', 'Jett', 'Sage']","['Vandal', 'Phantom', 'Operator']",35
+62,64,821,Warmest Aloha#SKz,241.5,156.6,1.17,23.7,51.9,"['Reyna', 'Phoenix', 'Chamber']","['Vandal', 'Spectre', 'Stinger']",37
+63,67,819,COL PowerPixele#EXDE,201.2,130.9,1.00,23.2,47.5,"['Viper', 'Omen', 'Brimstone']","['Vandal', 'Phantom', 'Stinger']",36
+64,65,820,Andersin#WOOF,219.7,145.2,1.06,27.8,54.0,"['Fade', 'Sova', 'Chamber']","['Vandal', 'Phantom', 'Ghost']",41
+65,66,820,Bankroft#ROFL,227.3,149.7,1.13,22.8,55.4,"['Astra', 'Breach', 'Chamber']","['Vandal', 'Phantom', 'Classic']",34
+66,69,815,UCR Andrew#sammy,279.0,179.5,1.27,27.0,55.2,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Phantom', 'Sheriff']",41
+67,70,813,QoR snarlee#yodie,211.0,137.3,1.08,31.4,62.3,"['Chamber', 'Reyna', 'KAY/O']","['Vandal', 'Sheriff', 'Spectre']",46
+68,71,810,req#oppaí,261.4,170.6,1.36,35.1,54.3,"['Chamber', 'Reyna', 'Jett']","['Vandal', 'Ghost', 'Operator']",49
+69,86,792,100T iiTzTimmy#iiTz,244.9,159.3,1.24,30.4,49.8,"['Jett', 'Chamber', 'Viper']","['Vandal', 'Phantom', 'Ghost']",45
+70,59,827,FS dcop#peach,235.4,155.0,1.04,20.7,52.0,"['Raze', 'KAY/O', 'Chamber']","['Vandal', 'Phantom', 'Ghost']",37
+71,73,809,IMT sarah#1v9,226.4,147.6,1.13,42.2,51.4,"['Sova', 'KAY/O', 'Fade']","['Vandal', 'Sheriff', 'Guardian']",55
+72,72,810,koalanoob#mikuu,299.5,188.6,1.46,27.3,59.3,"['Chamber', 'Jett', 'Brimstone']","['Vandal', 'Operator', 'Ghost']",39
+73,74,808,King#027,203.8,135.9,1.06,35.3,51.8,"['Sova', 'Fade', 'Cypher']","['Vandal', 'Phantom', 'Ghost']",49
+74,77,801,ASP Legend#9520,216.0,143.8,1.03,24.3,53.3,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Operator', 'Phantom']",40
+75,78,799,evy#7TEEN,237.0,152.6,1.14,33.7,48.8,"['Reyna', 'Jett', 'Chamber']","['Vandal', 'Phantom', 'Ghost']",51
+76,79,798,ZexRowFN#NA2,229.8,148.2,1.09,30.1,54.2,"['Chamber', 'Reyna', 'Skye']","['Vandal', 'Phantom', 'Operator']",46
+77,80,797,C9 Xeppaa#XITER,253.1,165.1,1.17,23.9,51.4,"['Fade', 'Raze', 'Sova']","['Vandal', 'Phantom', 'Spectre']",37
+78,82,794,Weixin VinLeous#wCHAT,221.4,145.5,1.07,21.2,58.2,"['Sova', 'Brimstone', 'Chamber']","['Vandal', 'Spectre', 'Stinger']",32
+79,81,795,mercy#17yrs,187.6,125.5,0.91,28.2,51.8,"['Astra', 'Sova', 'Brimstone']","['Vandal', 'Phantom', 'Spectre']",44
+80,83,794,SQN zero cap#JHA,221.2,147.0,1.10,31.5,54.6,"['Chamber', 'Fade', 'Viper']","['Vandal', 'Sheriff', 'Ghost']",45
+81,84,793,voriac#joon,222.0,143.7,1.08,20.3,51.5,"['Brimstone', 'Chamber', 'Astra']","['Vandal', 'Phantom', 'Odin']",30
+82,85,792,satellite#twitr,208.6,135.1,0.95,19.9,50.7,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Phantom', 'Operator']",33
+83,87,788,TiGG#alot,230.4,148.5,1.13,28.3,51.2,"['Chamber', 'KAY/O', 'Fade']","['Vandal', 'Operator', 'Spectre']",45
+84,89,782,jovahnii#ezlol,219.0,143.8,1.04,29.2,55.5,"['Fade', 'Sova', 'KAY/O']","['Vandal', 'Phantom', 'Spectre']",46
+85,90,778,Cosmo#ETP,230.3,146.5,1.05,21.7,54.1,"['Yoru', 'Chamber', 'Raze']","['Vandal', 'Phantom', 'Stinger']",33
+86,76,802,subby#beep,200.1,131.6,1.02,22.2,65.1,"['Fade', 'Jett', 'Brimstone']","['Vandal', 'Phantom', 'Spectre']",33
+87,91,777,sukhdeepFPS#ttv,225.7,151.2,1.05,22.6,49.8,"['Raze', 'Fade', 'KAY/O']","['Vandal', 'Spectre', 'Phantom']",36
+88,92,775,Clewy#333,212.1,140.9,1.10,27.3,52.2,"['Chamber', 'Sova', 'Viper']","['Vandal', 'Phantom', 'Ghost']",39
+89,93,775,TTV Racoone#242,220.9,137.3,0.89,13.7,50.0,"['Raze', 'Reyna', 'Jett']","['Vandal', 'Judge', 'Phantom']",35
+90,94,774,zinc#ncie,196.8,130.1,1.01,33.5,49.5,"['Cypher', 'KAY/O', 'Fade']","['Vandal', 'Phantom', 'Ghost']",47
+91,95,774,Wicked#Weeb,236.5,153.7,1.04,37.5,50.8,"['Jett', 'Chamber', 'Raze']","['Vandal', 'Ghost', 'Operator']",51
+92,96,771,StarBound#idk,221.6,141.7,1.23,17.6,56.4,"['Chamber', 'Omen', 'Fade']","['Vandal', 'Operator', 'Ghost']",27
+93,97,768,gimp#1337,236.3,153.7,1.02,26.4,55.9,"['Phoenix', 'Reyna', 'Chamber']","['Vandal', 'Ghost', 'Stinger']",36
+94,98,767,SR v1c#dazzL,260.0,169.7,1.37,33.7,58.3,"['Chamber', 'Astra', 'Fade']","['Vandal', 'Ghost', 'Sheriff']",45
+95,99,765,Yum07#007,220.2,144.1,1.12,22.0,66.7,"['Astra', 'Brimstone', 'Viper']","['Vandal', 'Spectre', 'Frenzy']",37
+96,100,765,ALEKSANDAR#3500,228.8,148.9,1.15,40.4,50.2,"['Chamber', 'KAY/O', 'Jett']","['Vandal', 'Sheriff', 'Ghost']",58
+97,101,765,PapaSmurf#LFT,198.0,129.3,0.95,24.8,52.7,"['Viper', 'Brimstone', 'Sova']","['Vandal', 'Phantom', 'Spectre']",39
+98,102,764,tex#1of1,264.0,167.2,1.38,38.4,58.8,"['Chamber', 'Jett', 'Fade']","['Vandal', 'Operator', 'Ghost']",53
+99,88,783,infiltrator#000,232.5,150.0,1.02,33.4,51.3,"['Chamber', 'Jett', 'Neon']","['Vandal', 'Ghost', 'Operator']",50
