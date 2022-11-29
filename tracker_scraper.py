@@ -14,12 +14,16 @@ from bs4 import BeautifulSoup
 cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent, hours)', 'top_weapons(weapon, kills, hs%)']
 df = pd.DataFrame(columns=cols)
 url = "https://tracker.gg"
-leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
+leaderboard_refs = ["/valorant/leaderboards/ranked/all/default?page=1&region=na",
+                    "/valorant/leaderboards/ranked/all/default?page=2&region=na",
+                    "/valorant/leaderboards/ranked/all/default?page=3&region=na",
+                    "/valorant/leaderboards/ranked/all/default?page=4&region=na",
+                    "/valorant/leaderboards/ranked/all/default?page=5&region=na"]
 
 #---------------------------------#
 # Selenium webdriver
 
-def load_webdriver(url, output = ("", False)):
+def load_page_via_webdriver(url, output = ("", False)):
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
@@ -125,13 +129,15 @@ def get_top_weapons(player_soup):
     return weapons
 
 #---------------------------------#
+# Threading function
 
 def load_player_data(ref):
     global df
-    player_soup = load_webdriver("https://tracker.gg" + ref)
+    player_soup = load_page_via_webdriver("https://tracker.gg" + ref)
     player_data = get_player_data(player_soup)
     df = pd.concat([df, player_data.to_frame().T], ignore_index=True)
 
+#---------------------------------#
 
 def clean_df():
     global df    
@@ -144,16 +150,25 @@ def clean_df():
     df['win_percentage(%)'] = df['win_percentage(%)'].astype(float)
     df = df.sort_values(by=['rank'])
 
-#---------------------------------#
 
 def run_scraper():
     global df
 
-    soup = load_webdriver(url + leaderboard_ref)
-    player_refs = get_player_refs(soup)   
+    soups = []
+    player_refs = []
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(load_player_data, player_refs[0:15])
+    # Load each page of 100 players for 5 total pages
+    for ref in leaderboard_refs:
+        soups.append(load_page_via_webdriver(url + ref))
+
+    # Compile all player refs of 500 players
+    for soup in soups:
+        player_refs.append(get_player_refs(soup))
+
+    player_refs = [item for sublist in player_refs for item in sublist]
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(load_player_data, player_refs)
 
     clean_df()
 

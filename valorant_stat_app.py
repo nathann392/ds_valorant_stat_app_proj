@@ -14,7 +14,7 @@ import sys
 # Main
 
 def main():
-    ts.run_scraper()
+    # ts.run_scraper()
     df = pd.read_csv('combined_player_data.csv')
     
     
