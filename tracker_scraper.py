@@ -1,32 +1,23 @@
-import streamlit as st
-from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
-from IPython.display import display
 import pandas as pd
 import concurrent.futures
-import base64
-import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
-import time
-import sys
+
+#---------------------------------#
+# Global variables
 
 cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent, hours)', 'top_weapons(weapon, kills, hs%)']
 df = pd.DataFrame(columns=cols)
 url = "https://tracker.gg"
 leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
 
-#st.set_page_config(layout='wide')
-
-#st.title('App')
-#st.markdown('This app retrieves statistical data from the ____')
-
 #---------------------------------#
-# Web scraping
+# Selenium webdriver
 
 def load_webdriver(url, output = ("", False)):
     options = webdriver.ChromeOptions()
@@ -47,6 +38,9 @@ def load_webdriver(url, output = ("", False)):
             f.write(str(soup.prettify()))
 
     return soup
+
+#---------------------------------#
+# Get all player data from soup
 
 def get_player_refs(soup):      
     players = []
@@ -131,7 +125,6 @@ def get_top_weapons(player_soup):
     return weapons
 
 #---------------------------------#
-# Multithread player data scraping
 
 def load_player_data(ref):
     global df
@@ -152,22 +145,17 @@ def clean_df():
     df = df.sort_values(by=['rank'])
 
 #---------------------------------#
-# Main
 
-def main():
+def run_scraper():
     global df
 
     soup = load_webdriver(url + leaderboard_ref)
     player_refs = get_player_refs(soup)   
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(load_player_data, player_refs[0:10])
+        executor.map(load_player_data, player_refs[0:15])
 
     clean_df()
 
     df.to_csv("combined_player_data.csv", encoding='utf-8', index=False)
-
     
-if __name__ == "__main__":
-    main()
-
