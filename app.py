@@ -56,11 +56,24 @@ def get_player_refs(soup):
 #---------------------------------#
 # Get player information
 
+def get_player_data(player_soup):
+    print(get_name(player_soup))
+    print(get_rr(player_soup))
+    print(get_rank(player_soup))
+    print(get_stat(player_soup, "Score/Round"))
+    print(get_stat(player_soup, "Damage/Round"))    
+    print(get_stat(player_soup, "K/D Ratio"))
+    print(get_stat(player_soup, "Headshot%"))
+    print(get_stat(player_soup, "Win %"))
+    print(get_top_agents(player_soup))
+    print(get_top_weapons(player_soup))
+    print(get_top_weapon_hs(player_soup))
+
+
 def get_rank(player_soup):
     rank_soup = player_soup.find("div", class_= "subtext")
     rank = rank_soup.get_text().strip().replace("#","")
-    return int(rank)
-
+    return rank
 
 def get_rr(player_soup):
     rr_soup = player_soup.find("span", class_= "mmr")
@@ -72,29 +85,36 @@ def get_name(player_soup):
     hashtag = player_soup.find("span", class_= "trn-ign__discriminator")
     return name.get_text().strip() + hashtag.get_text().strip()
 
-def get_score_per_round(player_soup):
-    pass
-
-def get_damage_per_round(player_soup):
-    pass
-
-def get_kd_ratio(player_soup):
-    pass
-
-def get_hs_percent(player_soup):
-    pass
-
-def get_win_percent(player_soup):
-    pass
+def get_stat(player_soup, html_title):
+    soup = player_soup.find("span", title=html_title)
+    stat = soup.find_next_sibling("span").get_text().strip().replace("%","")    
+    return stat
 
 def get_top_agents(player_soup):
-    pass
+    agents = []
+    soups = player_soup.find_all("div", "st-content__item")
+    for soup in soups:
+        agent_soup = soup.find("div", class_="value")
+        agent = agent_soup.get_text().strip()
+        agents.append(agent)
+
+    return agents
+
 
 def get_top_weapons(player_soup):
-    pass
+    weapons = []
+    weapon_soup = player_soup.find_all("div", class_= "weapon__name")
+    for weapon in weapon_soup:
+        weapons.append(weapon.get_text().strip())
 
-def get_weapon_hs(player_soup):
-    pass
+    return weapons
+
+
+def get_top_weapon_hs(player_soup):
+    weapon_hs_soup = player_soup.find("div", class_="weapon__accuracy-hits")
+    weapon_hs =  weapon_hs_soup.contents[0].get_text().strip().replace("%","") 
+    return weapon_hs
+
 
 #---------------------------------#
 # Main
@@ -107,17 +127,13 @@ df = pd.DataFrame(columns=cols)
 
 def main():
 
-
     soup = load_webdriver("leaderboard", url + leaderboard_ref, output=True)
-    player_refs = get_player_refs(soup)
-    
+    player_refs = get_player_refs(soup)   
 
     # TODO: Set up multithread 
     one = load_webdriver("player1", url + player_refs[0], output=True)
 
-    print(get_name(one))
-    print(get_rr(one))
-    print(get_rank(one))
+    get_player_data(one)
 
 if __name__ == "__main__":
     main()
