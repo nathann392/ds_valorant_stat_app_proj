@@ -19,7 +19,8 @@ import sys
 
 cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_3_agents', 'top_weapon', 'top_weapon_hs_percentage(%)']
 df = pd.DataFrame(columns=cols)
-
+url = "https://tracker.gg"
+leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
 #st.set_page_config(layout='wide')
 
 #st.title('App')
@@ -57,9 +58,6 @@ def get_player_refs(soup):
         players.append(user_url)        
 
     return players
-
-#---------------------------------#
-# Get player information
 
 def get_player_data(player_soup):
     name = get_name(player_soup)
@@ -136,15 +134,14 @@ def load_player_data(ref):
 
 def main():
 
-    url = "https://tracker.gg"
-    leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
-
-    soup = load_webdriver(url + leaderboard_ref, output=("leaderboard", True))
+    soup = load_webdriver(url + leaderboard_ref)
     player_refs = get_player_refs(soup)   
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
         executor.map(load_player_data, player_refs)
 
     df.to_csv("combined_player_data.csv", encoding='utf-8')
+
     
 if __name__ == "__main__":
     main()
