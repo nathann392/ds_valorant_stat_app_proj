@@ -12,15 +12,14 @@ import concurrent.futures
 import base64
 import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
-import requests
-import json
 import time
 import sys
 
-cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_3_agents', 'top_weapon', 'top_weapon_hs_percentage(%)']
+cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent, hours)', 'top_weapons(weapon, kills, hs%)']
 df = pd.DataFrame(columns=cols)
 url = "https://tracker.gg"
 leaderboard_ref = "/valorant/leaderboards/ranked/all/default?page=1&region=na"
+
 #st.set_page_config(layout='wide')
 
 #st.title('App')
@@ -53,7 +52,7 @@ def get_player_refs(soup):
     players = []
     usernames = soup.find_all("td", class_="username")
     
-    for index, username in enumerate(usernames):
+    for username in usernames:
         user_url = username.div.a['href']
         players.append(user_url)        
 
@@ -70,21 +69,20 @@ def get_player_data(player_soup):
     win = get_stat(player_soup, "Win %")
     agents = get_top_agents(player_soup)
     weapons = get_top_weapons(player_soup)
-    weapon_hs = get_top_weapon_hs(player_soup)
 
-    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_3_agents': agents, 'top_weapon': weapons, 'top_weapon_hs_percentage(%)': weapon_hs})
+    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_agents(agent, hours)': agents, 'top_weapons(weapon, kills, hs%)': weapons})
 
     return row
 
 def get_rank(player_soup):
     rank_soup = player_soup.find("div", class_= "subtext")
-    rank = rank_soup.get_text().strip().replace("#","")
+    rank = rank_soup.get_text().replace("#","").strip()
     return rank
 
 def get_rr(player_soup):
     rr_soup = player_soup.find("span", class_= "mmr")
-    rr = rr_soup.get_text().strip().replace(",","").replace("RR","")
-    return int(rr)
+    rr = rr_soup.get_text().replace(",","").replace("RR","").strip()
+    return rr
 
 def get_name(player_soup):
     name = player_soup.find("span", class_= "trn-ign__username")
@@ -93,10 +91,10 @@ def get_name(player_soup):
 
 def get_stat(player_soup, html_title):
     soup = player_soup.find("span", title=html_title)
-    stat = soup.find_next_sibling("span").get_text().strip().replace("%","")    
+    stat = soup.find_next_sibling("span").get_text().replace("%","").strip() 
     return stat
 
-def get_top_agents(player_soup):
+def get_top_agents1(player_soup):
     agents = []
     soups = player_soup.find_all("div", "st-content__item")
     for soup in soups:
@@ -106,18 +104,31 @@ def get_top_agents(player_soup):
 
     return agents
 
+def get_top_agents(player_soup):
+    agents = []
+    soups = player_soup.find_all("div", "st-content__item")
+    for soup in soups:
+        agent_soup = soup.find_all("div", class_="value")
+        agent = agent_soup[0].get_text().strip()
+        hours = agent_soup[1].get_text().replace("hrs","").strip()
+        agents.append([agent, hours])
+
+    return agents   
+
 def get_top_weapons(player_soup):
     weapons = []
     weapon_soup = player_soup.find_all("div", class_= "weapon__name")
-    for weapon in weapon_soup:
-        weapons.append(weapon.get_text().strip())
+    weapon_kill_soup = player_soup.find_all("div", class_= "weapon__main-stat")
+    weapon_hs_soup = player_soup.find_all("div", class_="weapon__accuracy-hits")
+    
+    for i in range(3):
+        res = []
+        res.append(weapon_soup[i].get_text().strip())
+        res.append(weapon_kill_soup[i].find("span", class_="value").get_text().strip())
+        res.append(weapon_hs_soup[i].contents[0].get_text().replace("%","").strip())
+        weapons.append(res)
 
     return weapons
-
-def get_top_weapon_hs(player_soup):
-    weapon_hs_soup = player_soup.find("div", class_="weapon__accuracy-hits")
-    weapon_hs =  weapon_hs_soup.contents[0].get_text().strip().replace("%","") 
-    return weapon_hs
 
 #---------------------------------#
 # Multithread player data scraping
@@ -129,18 +140,32 @@ def load_player_data(ref):
     df = pd.concat([df, player_data.to_frame().T], ignore_index=True)
 
 
+def clean_df():
+    global df    
+    df['rank'] = df['rank'].astype(int)
+    df['rating'] = df['rating'].astype(int)
+    df['score/round'] = df['score/round'].astype(float)
+    df['damage/round'] = df['damage/round'].astype(float)
+    df['k/d_ratio'] = df['k/d_ratio'].astype(float)
+    df['hs_percentage(%)'] = df['hs_percentage(%)'].astype(float)
+    df['win_percentage(%)'] = df['win_percentage(%)'].astype(float)
+    df = df.sort_values(by=['rank'])
+
 #---------------------------------#
 # Main
 
 def main():
+    global df
 
     soup = load_webdriver(url + leaderboard_ref)
     player_refs = get_player_refs(soup)   
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
-        executor.map(load_player_data, player_refs)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(load_player_data, player_refs[0:10])
 
-    df.to_csv("combined_player_data.csv", encoding='utf-8')
+    clean_df()
+
+    df.to_csv("combined_player_data.csv", encoding='utf-8', index=False)
 
     
 if __name__ == "__main__":
