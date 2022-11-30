@@ -150,7 +150,6 @@ def clean_df():
     df['win_percentage(%)'] = df['win_percentage(%)'].astype(float)
     df = df.sort_values(by=['rank'])
 
-
 def run_scraper():
     global df
 
@@ -161,7 +160,7 @@ def run_scraper():
     for ref in leaderboard_refs:
         soups.append(load_page_via_webdriver(url + ref))
 
-    # Compile all player refs of 500 players
+    # Compile all player refs of 500 players into one list
     for soup in soups:
         player_refs.append(get_player_refs(soup))
 
