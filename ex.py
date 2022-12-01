@@ -19,9 +19,9 @@ st.set_page_config(layout="wide")
 #---------------------------------#
 # Title
 
-image = Image.open('logo.jpg')
+#image = Image.open('logo.jpg')
 
-st.image(image, width = 500)
+#st.image(image, width = 500)
 
 st.title('Crypto Price App')
 st.markdown("""
@@ -29,7 +29,7 @@ This app retrieves cryptocurrency prices for the top 100 cryptocurrency from the
 """)
 #---------------------------------#
 # About
-expander_bar = st.beta_expander("About")
+expander_bar = st.expander("About")
 expander_bar.markdown("""
 * **Python libraries:** base64, pandas, streamlit, numpy, matplotlib, seaborn, BeautifulSoup, requests, json, time
 * **Data source:** [CoinMarketCap](http://coinmarketcap.com).
@@ -41,7 +41,7 @@ expander_bar.markdown("""
 # Page layout (continued)
 ## Divide page to 3 columns (col1 = sidebar, col2 and col3 = page contents)
 col1 = st.sidebar
-col2, col3 = st.beta_columns((2,1))
+col2, col3 = st.columns((2,1))
 
 #---------------------------------#
 # Sidebar + Main panel
@@ -59,6 +59,12 @@ def load_data():
     data = soup.find('script', id='__NEXT_DATA__', type='application/json')
     coins = {}
     coin_data = json.loads(data.contents[0])
+    print(type(coin_data["props"]))
+    print(type(coin_data["initialState"]))
+    print(type(coin_data["cryptocurrency"]))
+    print(type(coin_data["listingLatest"]))
+    print(type(coin_data["data"]))
+
     listings = coin_data['props']['initialState']['cryptocurrency']['listingLatest']['data']
     for i in listings:
       coins[str(i['id'])] = i['slug']

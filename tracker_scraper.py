@@ -8,10 +8,8 @@ import pandas as pd
 import concurrent.futures
 from bs4 import BeautifulSoup
 
-#---------------------------------#
 # Global variables
-
-cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent, hours)', 'top_weapons(weapon, kills, hs%)']
+cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent,hours,win%,acs)', 'top_weapons(weapon,kills,hs%)']
 df = pd.DataFrame(columns=cols)
 url = "https://tracker.gg"
 leaderboard_refs = ["/valorant/leaderboards/ranked/all/default?page=1&region=na",
@@ -20,9 +18,7 @@ leaderboard_refs = ["/valorant/leaderboards/ranked/all/default?page=1&region=na"
                     "/valorant/leaderboards/ranked/all/default?page=4&region=na",
                     "/valorant/leaderboards/ranked/all/default?page=5&region=na"]
 
-#---------------------------------#
 # Selenium webdriver
-
 def load_page_via_webdriver(url, output = ("", False)):
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
@@ -42,9 +38,6 @@ def load_page_via_webdriver(url, output = ("", False)):
             f.write(str(soup.prettify()))
 
     return soup
-
-#---------------------------------#
-# Get all player data from soup
 
 def get_player_refs(soup):      
     players = []
@@ -68,7 +61,7 @@ def get_player_data(player_soup):
     agents = get_top_agents(player_soup)
     weapons = get_top_weapons(player_soup)
 
-    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_agents(agent, hours)': agents, 'top_weapons(weapon, kills, hs%)': weapons})
+    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_agents(agent,hours,win%,acs)': agents, 'top_weapons(weapon,kills,hs%)': weapons})
 
     return row
 
@@ -92,16 +85,6 @@ def get_stat(player_soup, html_title):
     stat = soup.find_next_sibling("span").get_text().replace("%","").strip() 
     return stat
 
-def get_top_agents1(player_soup):
-    agents = []
-    soups = player_soup.find_all("div", "st-content__item")
-    for soup in soups:
-        agent_soup = soup.find("div", class_="value")
-        agent = agent_soup.get_text().strip()
-        agents.append(agent)
-
-    return agents
-
 def get_top_agents(player_soup):
     agents = []
     soups = player_soup.find_all("div", "st-content__item")
@@ -109,7 +92,9 @@ def get_top_agents(player_soup):
         agent_soup = soup.find_all("div", class_="value")
         agent = agent_soup[0].get_text().strip()
         hours = agent_soup[1].get_text().replace("hrs","").strip()
-        agents.append([agent, hours])
+        win = agent_soup[3].get_text().replace("%","").strip()
+        acs = agent_soup[6].get_text().strip()
+        agents.append([agent, hours, win, acs])
 
     return agents   
 
@@ -128,27 +113,12 @@ def get_top_weapons(player_soup):
 
     return weapons
 
-#---------------------------------#
 # Threading function
-
 def load_player_data(ref):
     global df
     player_soup = load_page_via_webdriver("https://tracker.gg" + ref)
     player_data = get_player_data(player_soup)
     df = pd.concat([df, player_data.to_frame().T], ignore_index=True)
-
-#---------------------------------#
-
-def clean_df():
-    global df    
-    df['rank'] = df['rank'].astype(int)
-    df['rating'] = df['rating'].astype(int)
-    df['score/round'] = df['score/round'].astype(float)
-    df['damage/round'] = df['damage/round'].astype(float)
-    df['k/d_ratio'] = df['k/d_ratio'].astype(float)
-    df['hs_percentage(%)'] = df['hs_percentage(%)'].astype(float)
-    df['win_percentage(%)'] = df['win_percentage(%)'].astype(float)
-    df = df.sort_values(by=['rank'])
 
 def run_scraper():
     global df
@@ -166,10 +136,8 @@ def run_scraper():
 
     player_refs = [item for sublist in player_refs for item in sublist]
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
         executor.map(load_player_data, player_refs)
 
-    clean_df()
-
-    df.to_csv("combined_player_data.csv", encoding='utf-8', index=False)
+    df.to_csv("player_data1.csv", encoding='utf-8', index=False)
     
