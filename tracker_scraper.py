@@ -9,7 +9,7 @@ import concurrent.futures
 from bs4 import BeautifulSoup
 
 # Global variables
-cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_agents(agent,hours,win%,acs)', 'top_weapons(weapon,kills,hs%)']
+cols = ['rank', 'rating', 'name', 'score/round', 'damage/round', 'k/d_ratio', 'hs_percentage(%)', 'win_percentage(%)', 'top_1_agents_name','top_1_agents_hours', 'top_1_agents_win%','top_1_agents_acs', 'top_2_agents_name', 'top_2_agents_hours', 'top_2_agents_win%', 'top_2_agents_acs', 'top_3_agents_name', 'top_3_agents_hours', 'top_3_agents_win%', 'top_3_agents_acs', 'top_1_weapon', 'top_1_weapon_kills', 'top_1_hs%', 'top_2_weapon', 'top_2_weapon_kills', 'top_2_weapon_hs%', 'top_3_weapon', 'top_3_weapon_kills', 'top_3_weapon_hs%']
 df = pd.DataFrame(columns=cols)
 url = "https://tracker.gg"
 leaderboard_refs = ["/valorant/leaderboards/ranked/all/default?page=1&region=na",
@@ -61,7 +61,7 @@ def get_player_data(player_soup):
     agents = get_top_agents(player_soup)
     weapons = get_top_weapons(player_soup)
 
-    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_agents(agent,hours,win%,acs)': agents, 'top_weapons(weapon,kills,hs%)': weapons})
+    row = pd.Series({'rank': rank, 'rating': rr, 'name': name, 'score/round': score, 'damage/round': dmg, 'k/d_ratio': kd, 'hs_percentage(%)': hs, 'win_percentage(%)': win, 'top_1_agents_name': agents[0][0],'top_1_agents_hours': agents[0][1], 'top_1_agents_win%': agents[0][2],'top_1_agents_acs': agents[0][3], 'top_2_agents_name': agents[1][0] if not None else '', 'top_2_agents_hours': agents[1][1] if not None else '', 'top_2_agents_win%': agents[1][2] if not None else '', 'top_2_agents_acs': agents[1][3] if not None else '', 'top_3_agents_name': agents[2][0] if not None else '', 'top_3_agents_hours': agents[2][1] if not None else '', 'top_3_agents_win%': agents[2][2] if not None else '', 'top_3_agents_acs': agents[2][3] if not None else '', 'top_1_weapon': weapons[0][0], 'top_1_weapon_kills': weapons[0][1], 'top_1_hs%': weapons[0][2], 'top_2_weapon': weapons[1][0], 'top_2_weapon_kills': weapons[1][1], 'top_2_weapon_hs%': weapons[1][2], 'top_3_weapon': weapons[2][0], 'top_3_weapon_kills': weapons[2][1], 'top_3_weapon_hs%': weapons[2][2]})
 
     return row
 
@@ -95,7 +95,7 @@ def get_top_agents(player_soup):
         win = agent_soup[3].get_text().replace("%","").strip()
         acs = agent_soup[6].get_text().strip()
         agents.append([agent, hours, win, acs])
-
+        
     return agents   
 
 def get_top_weapons(player_soup):
@@ -126,7 +126,7 @@ def run_scraper():
     soups = []
     player_refs = []
 
-    # Load each page of 100 players for 5 total pages
+    # Load each page of 100 players for 5 total pagesc
     for ref in leaderboard_refs:
         soups.append(load_page_via_webdriver(url + ref))
 
