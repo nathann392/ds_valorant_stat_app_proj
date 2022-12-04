@@ -2,10 +2,13 @@
 * Created a tool that retrieves and analyzes the top 500 [Valorant](https://playvalorant.com/en-us/) player statistics to help understand current game balance.
 * Individually scraped 500 player profiles from tracker.gg using python, selenium, and concurrent.futures(multithreading)
 
-## Code and Resources Used 
+## Resources
 **Python Version:** 3.97
+
 **Packages:** pandas, numpy, streamlit, sklearn, matplotlib, seaborn, selenium, concurrent.futures, BeautifulSoup
+
 **Data Source:**  [tracker.gg](http://tracker.gg/valorant/leaderboard)   
+
 **Multithreaded Scraper Article:** https://betterprogramming.pub/faster-web-scraping-in-python-using-multithreading-496da9eaf0c2
 
 ## Web Scraping
